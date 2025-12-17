@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class LapRecordContainer extends StatelessWidget {
-  LapRecordContainer({
+  const LapRecordContainer({
     required this.lapNumber,
     required this.lapTiming,
     super.key,
   });
 
-  String lapNumber;
-  String lapTiming;
+  final String lapNumber;
+  final String lapTiming;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,7 @@ class LapRecordContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 InkWell(
-                  onTap: () {
-                    print("Deleted");
-                  },
+                  onTap: () {},
                   child: Icon(
                     Icons.delete,
                     color: Colors.grey,
