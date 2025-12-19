@@ -39,12 +39,8 @@ class _HomeState extends State<Home> {
     // print(timeFormate(_elapsedTime));
   }
 
-  List<dynamic> LapsList = [
-    {'lap' : "LAP 1" , 'timer' : "03:25:56"},
-    {'lap' : "LAP 2" , 'timer' : "0:32:23"},
-    {'lap' : "LAP 3" , 'timer' : "01:55:56"},
-    {'lap' : "LAP 4" , 'timer' : "08:17:06"},
-    {'lap' : "LAP 5" , 'timer' : "03:36:56"},
+  List<dynamic> lapsList = [
+    
   ];
 
   String buttonOneText = "Start";
@@ -68,6 +64,13 @@ class _HomeState extends State<Home> {
     // LapsList.clear(); // this function is not defined
     setState(() {});
     buttonOneText = "Start";
+  }
+
+  void laps() {
+    lapsList.add({
+      'lap': "LAP ${lapsList.length + 1}",
+      'timer': timeFormate(_elapsedTime),
+    });
   }
 
   @override
@@ -100,6 +103,9 @@ class _HomeState extends State<Home> {
                 child: Center(
                   child: InkWell(
                     onTap: () {
+                      if (buttonOneText == "Pause") {
+                        laps();
+                      }
                       //add a new lap when clicking
                     },
                     child: Container(
@@ -133,36 +139,19 @@ class _HomeState extends State<Home> {
 
               //! Lap Records
               Padding(
-                padding: const EdgeInsetsGeometry.only(top: 80),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      // The lap should be inside listbuilder function
-                      LapRecordContainer(
-                        lapNumber: "LAP 1",
-                        lapTiming: "00:00:00",
-                      ),
-                      SizedBox(width: 10),
-
-                      LapRecordContainer(
-                        lapNumber: "LAP 2",
-                        lapTiming: "00:00:00",
-                      ),
-                      SizedBox(width: 10),
-
-                      LapRecordContainer(
-                        lapNumber: "LAP 3",
-                        lapTiming: "00:00:00",
-                      ),
-                      SizedBox(width: 10),
-
-                      LapRecordContainer(
-                        lapNumber: "LAP 4",
-                        lapTiming: "00:00:00",
-                      ),
-                      SizedBox(width: 10),
-                    ],
+                padding: const EdgeInsets.only(top: 70),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 100,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: lapsList.length, //number of boxes you want
+                    itemBuilder: (context, index) {
+                      return LapRecordContainer(
+                        lapNumber: "LAP ${index + 1}",
+                        lapTiming: lapsList[index]['timer'],
+                      );
+                    },
                   ),
                 ),
               ),
