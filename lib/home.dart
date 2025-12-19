@@ -39,9 +39,7 @@ class _HomeState extends State<Home> {
     // print(timeFormate(_elapsedTime));
   }
 
-  List<dynamic> lapsList = [
-    
-  ];
+  List<dynamic> lapsList = [];
 
   String buttonOneText = "Start";
   String buttonTwoText = "Reset";
@@ -79,9 +77,16 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 0),
-          child: Icon(Icons.arrow_back_ios_new, size: 22),
+          child: Icon(Icons.watch_later, size: 22),
         ),
-        title: Text("StopWatch", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          "Stopwatch",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            fontFamily: "Oswald",
+          ),
+        ),
         centerTitle: true,
         actions: [
           Padding(
@@ -212,6 +217,7 @@ class _HomeState extends State<Home> {
                         onPressed: () {
                           resetWatch();
                           setState(() {});
+                          lapsList = [];
                         },
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.black87,
