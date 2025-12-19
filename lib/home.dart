@@ -39,9 +39,13 @@ class _HomeState extends State<Home> {
     // print(timeFormate(_elapsedTime));
   }
 
-  // void stopWatch() {
-  //   _timer.cancel();
-  // }
+  List<dynamic> LapsList = [
+    {'lap' : "LAP 1" , 'timer' : "03:25:56"},
+    {'lap' : "LAP 2" , 'timer' : "0:32:23"},
+    {'lap' : "LAP 3" , 'timer' : "01:55:56"},
+    {'lap' : "LAP 4" , 'timer' : "08:17:06"},
+    {'lap' : "LAP 5" , 'timer' : "03:36:56"},
+  ];
 
   String buttonOneText = "Start";
   String buttonTwoText = "Reset";
@@ -56,6 +60,14 @@ class _HomeState extends State<Home> {
       buttonOneText = "Start";
       buttonOneIcon = Icons.play_arrow;
     }
+  }
+
+  void resetWatch() {
+    _timer?.cancel();
+    _elapsedTime = Duration.zero;
+    // LapsList.clear(); // this function is not defined
+    setState(() {});
+    buttonOneText = "Start";
   }
 
   @override
@@ -110,6 +122,7 @@ class _HomeState extends State<Home> {
                           style: TextStyle(
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
+                            fontFamily: "Oswald",
                           ),
                         ),
                       ),
@@ -125,6 +138,7 @@ class _HomeState extends State<Home> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
+                      // The lap should be inside listbuilder function
                       LapRecordContainer(
                         lapNumber: "LAP 1",
                         lapTiming: "00:00:00",
@@ -155,18 +169,19 @@ class _HomeState extends State<Home> {
 
               //! Bottom Buttons
               Padding(
-                padding: const EdgeInsetsGeometry.only(top: 100),
+                padding: const EdgeInsetsGeometry.only(top: 100, bottom: 50),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     //! -----------------------------------------------------------
+
+                    //? Button 1 - Starts & Pause
                     SizedBox(
-                      width: 150,
-                      height: 50,
+                      width: 160,
+                      height: 60,
                       child: TextButton(
                         onPressed: () {
                           setState(() {});
-
                           if (buttonOneText == "Start") {
                             startWatch(true);
                           } else if (buttonOneText == "Pause") {
@@ -176,86 +191,72 @@ class _HomeState extends State<Home> {
                         },
 
                         style: TextButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(
-                            255,
-                            83,
-                            109,
-                            128,
-                          ),
-
+                          backgroundColor: Colors.black87,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusGeometry.circular(100),
+                            borderRadius: BorderRadiusGeometry.circular(40),
                           ),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(buttonOneIcon, color: Colors.white),
-                            SizedBox(width: 10),
+                            Icon(buttonOneIcon, color: Colors.white, size: 30),
+                            SizedBox(width: 15),
                             Text(
                               buttonOneText,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 22,
                                 fontWeight: FontWeight.bold,
+                                fontFamily: 'Oswald',
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
+
+                    //? Button 2 - Reset
                     SizedBox(
-                      width: 150,
-                      height: 50,
+                      width: 160,
+                      height: 60,
                       child: TextButton(
                         onPressed: () {
-                          // if (text == "Start") {
-                          //   changeText("Pause" ,Icons.pause );
-                          // }else if (widget.text == "Pause") {
-                          //   changeText("Start" , Icons.play_arrow);
-                          // }
+                          resetWatch();
                           setState(() {});
                         },
-
                         style: TextButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(
-                            255,
-                            83,
-                            109,
-                            128,
-                          ),
-                          // padding: const EdgeInsets.symmetric(
-                          //   horizontal: 30,
-                          //   vertical: 14,
-                          // ),
+                          backgroundColor: Colors.black87,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusGeometry.circular(100),
+                            borderRadius: BorderRadiusGeometry.circular(40),
                           ),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.restore_sharp, color: Colors.white),
-                            SizedBox(width: 10),
+                            Icon(
+                              Icons.restore_sharp,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            SizedBox(width: 20),
                             Text(
                               buttonTwoText,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 22,
                                 fontWeight: FontWeight.bold,
+                                fontFamily: "Oswald",
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
+
                     //! -----------------------------------------------------------
-                    // BottomButton(icon: Icons.pause, text: "Start"),
-                    // BottomButton(icon: Icons.restore, text: "Reset"),
                   ],
                 ),
               ),
-              
             ],
           ),
         ),
